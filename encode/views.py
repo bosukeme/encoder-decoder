@@ -7,7 +7,10 @@ from .serializers import EncodeSerializer, DecodeSerializer, EncodedResponseSeri
 from .services import EncoderDecoder
 
 
-@extend_schema(tags=["Encode"])
+@extend_schema(
+    tags=["Encode"],
+    responses={status.HTTP_201_CREATED: EncodedResponseSerializer},
+)
 class EncodeView(generics.CreateAPIView):
     serializer_class = EncodeSerializer
 
@@ -28,7 +31,10 @@ class EncodeView(generics.CreateAPIView):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=["Decode"])
+@extend_schema(
+    tags=["Decode"],
+    responses={status.HTTP_201_CREATED: DecodedResponseSerializer},
+)
 class DecodeView(generics.CreateAPIView):
     serializer_class = DecodeSerializer
 
